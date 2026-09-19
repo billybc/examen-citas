@@ -1,0 +1,23 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: his_citas_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass123
+      MYSQL_DATABASE: his_citas
+      MYSQL_USER: his_user
+      MYSQL_PASSWORD: his_pass123
+    ports:
+      - "3306:3306"
+    volumes:
+      - his_citas_data:/var/lib/mysql
+      - ./db:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-prootpass123"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  his_citas_data:
