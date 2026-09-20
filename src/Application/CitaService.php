@@ -85,11 +85,15 @@ final class CitaService
 
     public function changeStatus(int $id, string $estado): array
     {
+        $cita = $this->repository->find($id);
+        if ($cita === null) {
+            throw new CitaNotFoundException("La cita {$id} no existe.");
+        }
         if (!in_array($estado, self::ESTADOS_VALIDOS, true)) {
             throw new InvalidArgumentException('Estado no válido. Use: ' . implode(', ', self::ESTADOS_VALIDOS));
         }
-        if ($this->repository->find($id) === null) {
-            throw new CitaNotFoundException("La cita {$id} no existe.");
+        if ($cita->estado === 'cancelada' && $estado !== 'cancelada') {
+            throw new InvalidArgumentException('Una cita cancelada no puede cambiar de estado.');
         }
 
         $this->repository->changeStatus($id, $estado);
