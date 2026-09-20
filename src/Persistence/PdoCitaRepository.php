@@ -14,7 +14,7 @@ final class PdoCitaRepository implements CitaRepositoryInterface
     {
     }
 
-    public function all(?int $doctorId, ?string $desde, ?string $hasta): array
+    public function all(?int $doctorId, ?int $pacienteId, ?string $desde, ?string $hasta): array
     {
         $sql = 'SELECT * FROM citas WHERE 1=1';
         $params = [];
@@ -22,6 +22,10 @@ final class PdoCitaRepository implements CitaRepositoryInterface
         if ($doctorId !== null) {
             $sql .= ' AND doctor_id = :doctor_id';
             $params['doctor_id'] = $doctorId;
+        }
+        if ($pacienteId !== null) {
+            $sql .= ' AND paciente_id = :paciente_id';
+            $params['paciente_id'] = $pacienteId;
         }
         if ($desde !== null) {
             $sql .= ' AND fecha >= :desde';

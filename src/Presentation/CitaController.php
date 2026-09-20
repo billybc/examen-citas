@@ -35,7 +35,8 @@ final class CitaController
             // GET /api/citas
             if ($method === 'GET' && $path === '/citas') {
                 $doctorId = isset($query['doctor_id']) ? (int) $query['doctor_id'] : null;
-                $data = $this->service->listCitas($doctorId, $query['desde'] ?? null, $query['hasta'] ?? null);
+                $pacienteId = isset($query['paciente_id']) ? (int) $query['paciente_id'] : null;
+                $data = $this->service->listCitas($doctorId, $pacienteId, $query['desde'] ?? null, $query['hasta'] ?? null);
                 $this->json(200, ['data' => $data]);
                 return;
             }
