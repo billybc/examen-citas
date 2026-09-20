@@ -17,9 +17,9 @@ final class CitaService
     {
     }
 
-    public function listCitas(?int $doctorId, ?string $desde, ?string $hasta): array
+    public function listCitas(?int $doctorId, ?int $pacienteId, ?string $desde, ?string $hasta): array
     {
-        return array_map(fn ($c) => $c->toArray(), $this->repository->all($doctorId, $desde, $hasta));
+        return array_map(fn ($c) => $c->toArray(), $this->repository->all($doctorId, $pacienteId, $desde, $hasta));
     }
 
     public function getCita(int $id): array

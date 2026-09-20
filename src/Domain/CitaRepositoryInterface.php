@@ -7,7 +7,7 @@ namespace Citas\Domain;
 interface CitaRepositoryInterface
 {
     /** @return array<int, Cita> */
-    public function all(?int $doctorId, ?string $desde, ?string $hasta): array;
+    public function all(?int $doctorId, ?int $pacienteId, ?string $desde, ?string $hasta): array;
 
     public function find(int $id): ?Cita;
 
